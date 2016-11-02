@@ -4,17 +4,24 @@ Android Support
 Building for Android
 --------------------
 
-Android is similar to desktop systems in that .hvr files are read from disk when being used to play a HvrActor. The Android HVR playback system expects that all static data is stored in a directory named “8i” in the devices external public storage. There are two different ways you can get .hvr files into the correct location for playback on your Android device.
+Android is similar to desktop systems in that .hvr files are read from disk when being used to play a HvrActor. Previously, the Android HVR playback system expected that all static data was stored in a directory named “8i” in the device public storage. *This is no longer the case*. Files are now expected to be stored within the app's internal storage. The Unity Plugin provides support to export .hvr data using an OBB file, and then unpack this data into the correct location within the app's internal storage. 
 
-**Build External Assets Folder (manual copy)**
+**Split Application Binary**
 
-Under the “8i” menu in Unity, you can use the “Build External Assets Folder” to build the required “8i” folder (full of .hvr files) and then copy this folder directly to the devices external public storage yourself. You can do this by plugging your device into a computer, and accessing the device’s file system. The public directory should contain other folders such as “Movies”, “Media”, “Music”, “Download” and others.
+The Google Play Store imposes a size limit of 100mb for APK files uploaded for distribution. To allow larger data to be shipped with an APK, Android supports OBB files, also known as Application Expansion Files (`Read More`__.). Unity also supports these files, via a player setting called "Split Application Binary". This option will export many of the project resources to an OBB, rather than packaging them with the APK. To export your .hvr files with your project, this option must be turned on. 
 
-**Build and Run (Assets Packed)**
+*** Packing ***
+Each time you add or remove an HvrActor or new .hvr files, you should run the "8i/Android/Prepare Assets for Build" menu item. This will place all the .hvr data in the correct location to be exported with your build, and build a manifest file which describes which data should be unpacked. 
 
-Under the “Android” sub-menu of the “8i” menu in Unity, there is an option to “Build and Run (Assets Packed)”. This will create an APK that contains all of your data, and will add an “unpacking” scene to the project, which populates the “8i” external public folder as required whenever your application is opened. Please note that if your project uses a large amount of data, Unity may fail to build a packed APK.
+*** Unpacking ***
+Your assets cannot be used for playback while packed in the OBB. They need to be unpacked and written to your app's internal storage. The Unity Plugin provides a helper scene which does this for you. This scene is called "HvrUnpackingScene", and is found in "8i/core/platform support/android/scenes". If you make this scene the first scene in your build settings (i.e. it will be launched when the app is launched), it will automatically unpack the assets, and then load the next scene. If you look at the "LoadingSceneManager" class used in this scene, you will see how we use the "AndroidAssetUnpacker" class to unpack assets. This is a very simple process, and if you are unhappy with the way our loading scene works, you should be easily able to implement your own asset loader using this class. 
 
-It is suggested that you use “Build and Run (Assets Packed)” for the first build after you have added a new asset to a scene (or are distributing your APK). You should otherwise use Unity’s standard build system. Once an asset has been unpacked, it will remain unpacked and accessible during future runs and builds of the application. Uploading an APK with packed assets to a device will take significantly longer than uploading an APK produced by the standard Unity build system (as the asset packed APK will be much larger).
+*** Building ***
+Once your assets are prepared, you should build via the standard Unity build process. There is no need to run the "Prepare Assets for Build" option unless you've added or removed any .hvr data to your project.
+
+.. note::
+	Some devices do not seem to correctly allow the OBB file to be copied to the device when using the "Build and Run" option in Unity, and in some cases will silently fail to update the OBB when you build. If this occurs, you will need to manually copy the OBB to your device. So far only the Samsung Galaxy Note 5 has been observed with this issue. 
+
 
 Performance on Android
 ----------------------
@@ -23,5 +30,6 @@ Android performs much slower than desktop systems. It is recommended that hvr fr
 
 It is recommended to use the ‘Direct’ HvrRender render method on Android as it is the best performing renderer.
 
-.. note::
-    We are aware of the APK size limits imposed by the Google Play Store. Support for .obb files is likely to be added in the future.
+The actor render mode should be set to "Point Sprite" in most cases. "Point Blend" does not work on some older devices, and is around twice as expensive to render. 
+
+.. __: https://developer.android.com/google/play/expansion-files.html
