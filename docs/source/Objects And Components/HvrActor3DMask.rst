@@ -3,7 +3,7 @@ HvrActor3DMask
 
 This components allows you to mask sections of an HvrActor in 3D space.
 
-Instructions
+**Instructions**
 1. Attach a HvrActor3DMask component to the HvrActor you wish to mask.
 2. Create a new GameObject.
 3. Attach a HvrActor3DMaskObject to the new GameObject.
