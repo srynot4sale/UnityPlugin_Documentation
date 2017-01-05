@@ -1,4 +1,4 @@
-HvrActor_Clone
+HvrActorClone
 ===========
 
 This component allows you to clone a specified HvrActor and render copies of it with a reduced performance cost. The performance savings are on the CPU and come from letting the clone share the source’s HvrAsset and reducing the total disk read and file decompression. Three clones are still just as expensive to render as three regular HvrActors.
