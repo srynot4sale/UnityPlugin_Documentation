@@ -7,7 +7,7 @@ Contents:
    :maxdepth: 0
 
    HvrActor
-   HvrActor_Clone
+   HvrActorClone
    HvrAsset
    HvrRender
    HvrColorGrading
