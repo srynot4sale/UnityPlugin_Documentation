@@ -16,7 +16,7 @@ Parameters
     Slot which a folder containing .hvr frames can be dragged to from the Project.
 
 **Asset**
-    ***Render Method***
+    **Render Method**
     The rendering method the HvrActor’s HvrAsset will render with.
 
         Options
@@ -27,7 +27,7 @@ Parameters
                 - Renders faster than PointBlend
 
 **Renderer**
-    ***Render Method***
+    **Render Method**
     The rendering method the actor will use to draw into the scene.
 
         Options
@@ -42,15 +42,15 @@ Parameters
     .. note::
         This setting will be overridden if the rendering camera’s HvrRender component is not set to ‘Standard’.
 
-    ***Material***
+    **Material**
         The material the HvrActor will render with if using the 'Standard' RenderMethod.
 
-    ***Receive Shadows***
+    **Receive Shadows**
         Whether the HvrActor will receive shadows when used alongside the HvrShadowRender component. 
         This feature is still in preview and is not recommended for production use.
         Enabled by default.
 
-    ***Cast Shadows***
+    **Cast Shadows**
         Whether the HvrActor will cast shadows when used alongside the HvrShadowRender component.
         This feature is still in preview and is not recommended for production use.
         Enabled by default.
