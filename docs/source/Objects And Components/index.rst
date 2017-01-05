@@ -11,3 +11,4 @@ Contents:
    HvrAsset
    HvrRender
    HvrColorGrading
+   HvrActor3DMask
