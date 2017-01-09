@@ -8,7 +8,7 @@ All the files you need to access, including the plugin, example content and docu
 Adding the 8i Unity Plugin
 --------------------------
 
-1. Ensure you have Unity 5.2.3 or greater installed
+1. Ensure you have Unity 5.4.0 or greater installed
 2. Create a new Unity Project
 3. Extract the ‘8i’ folder from the plugin zip file into your project
 
